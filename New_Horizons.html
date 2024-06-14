@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta name="description" content=""> -->
+    <!-- <meta name="keywords" content=""> -->
+    <title>New Horizons</title>
+
+    <!-- font Swiper cdn link (which made the slides motion) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <!-- font awesome cdn link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- the main css link file -->
+    <link rel="stylesheet" href="New_Horizons.css" />
+
+    <!-- font Swiper cdn script (which made the slides motion) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+      defer
+    ></script>
+
+    <!-- the main js file -->
+    <script src="New_Horizons.js" defer></script>
+  </head>
+  <body>
+    <!-- header section  -->
+    <header>
+      <a href="#" class="logo"
+        ><i class="fas fa-person-hiking"></i> New Horizons</a
+      >
+      <nav>
+        <div class="fas fa-xmark"></div>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#shop">Shop</a>
+        <a href="#packages">Packages</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#blogs">Blogs</a>
+      </nav>
+      <div class="icons">
+        <div id="menu" class="fas fa-bars"></div>
+        <a href="#" id="cart" class="fas fa-cart-shopping"></a>
+        <div href="#" id="search-btn" class="fas fa-magnifying-glass"></div>
+      </div>
+    </header>
+
+    <!-- search form -->
+    <div class="search-form">
+      <div class="search-close fas fa-xmark"></div>
+      <form action="">
+        <input
+          type="search"
+          name=""
+          placeholder="Search here..."
+          id="search-box"
+        />
+        <label for="search-box" class="fas fa-magnifying-glass"></label>
+      </form>
+    </div>
+
+    <!-- home section -->
+    <section id="home" class="home_swiper">
+      <div class="swiper-wrapper">
+        <div
+          class="slide swiper-slide fristBg"
+          style="
+            background-image: linear-gradient(
+                to top,
+                rgba(255, 255, 255),
+                transparent 15%
+              ),
+              url(./photos/bg_home_1.jpg);
+          "
+        >
+          <div class="content">
+            <h3>Never Stop</h3>
+            <h2>EXPLORING</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Doloremque maxime numquam corporis eligendi amet adipisci
+              voluptatibus corrupti vel architecto. Explicabo.
+            </p>
+            <a href="#" class="btn">Get Started</a>
+          </div>
+        </div>
+        <div
+          class="slide swiper-slide secondBg"
+          style="
+            background-image: linear-gradient(
+                to top,
+                rgba(255, 255, 255),
+                transparent 15%
+              ),
+              url(./photos/bg_home_2.jpg);
+          "
+        >
+          <div class="content second">
+            <h3>Explore The</h3>
+            <h2>NEW WORLD</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Doloremque maxime numquam corporis eligendi amet adipisci
+              voluptatibus corrupti vel architecto. Explicabo.
+            </p>
+            <a href="#" class="btn">Get Started</a>
+          </div>
+        </div>
+        <div
+          class="slide swiper-slide"
+          style="
+            background-image: linear-gradient(
+                to top,
+                rgba(255, 255, 255),
+                transparent 15%
+              ),
+              url(./photos/bg_home_3.jpg);
+          "
+        >
+          <div class="content">
+            <h3>Make Tour</h3>
+            <h2>AMAZING</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Doloremque maxime numquam corporis eligendi amet adipisci
+              voluptatibus corrupti vel architecto. Explicabo.
+            </p>
+            <a href="#" class="btn">Get Started</a>
+          </div>
+        </div>
+      </div>
+      <!-- Add Arrows -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </section>
+
+    <!-- category section -->
+    <div class="category">
+      <h2 class="heading">Adventure Idea!</h2>
+      <div class="boxes-container">
+        <div class="box">
+          <img src="./photos/category_1.jpg" alt="" />
+          <h3>Bungee Jump</h3>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente,
+            voluptatum!
+          </p>
+          <a href="#" class="btn">Read More</a>
+        </div>
+
+        <div class="box">
+          <img src="./photos/category_2.jpg" alt="" />
+          <h3>Paraglajding</h3>
+          <p>
+            Voluptatibus incidunt facere corporis eius nemo minus quae dicta.
+            Asperiores.
+          </p>
+          <a href="#" class="btn">Read More</a>
+        </div>
+
+        <div class="box">
+          <img src="./photos/category_3.jpg" alt="" />
+          <h3>Canoeing</h3>
+          <p>
+            Velit, corporis! Ea reiciendis aliquam earum tempore, ducimus
+            blanditiis molestias.
+          </p>
+          <a href="#" class="btn">Read More</a>
+        </div>
+
+        <div class="box">
+          <img src="./photos/category_4.jpg" alt="" />
+          <h3>skiing</h3>
+          <p>
+            Similique hic assumenda suscipit sit. Volup conntur dolorum magni
+            animi?
+          </p>
+          <a href="#" class="btn">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- about section -->
+    <section id="about">
+      <div class="imageBox">
+        <img src="./photos/about.jpg" alt="" />
+      </div>
+      <div class="content">
+        <h2>Memorable Outdoor Experiences</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui officia
+          possimus fugiat id, asperiores eius esse. Ullam, dicta unde modi
+          accusantium ut atque minus omnis, rerum quia dolores culpa iusto!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
+          magnam illo odit numquam, reiciendis corporis odio quidem a cum
+          voluptas.
+        </p>
+        <a href="#" class="btn">Read More</a>
+      </div>
+    </section>
+
+    <!-- shop section -->
+    <section id="shop">
+      <h2 class="heading">Featured Products</h2>
+      <div class="swiper product-slider">
+        <div class="swiper-wrapper" id="shopContainer">
+          <!-- this fild fulled by JS -->
+        </div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-scrollbar"></div>
+      </div>
+    </section>
+
+    <!-- packages section -->
+    <section id="packages">
+      <h2 class="heading">Popular Packages</h2>
+      <div class="box-container" id="packagesContainer">
+        <!-- this fild fulled by JS -->
+      </div>
+    </section>
+
+    <!-- reviews section -->
+    <section id="reviews">
+      <h3 class="heading">Clint's Reviews</h3>
+      <div class="swiper review-slider">
+        <div class="containerBox swiper-wrapper">
+          <!-- this fild fulled by JS -->
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+
+    <!-- services section -->
+    <div class="services">
+      <h2 class="heading">What We Offer</h2>
+      <div class="box-container" id="servicesContainer">
+        <!-- this fild fulled by JS -->
+      </div>
+    </div>
+
+    <!-- blogs section -->
+    <section id="blogs">
+      <h2 class="heading">Our latest posts</h2>
+      <div class="swiper blog-slider">
+        <div class="containerBox swiper-wrapper" id="blogsContainer">
+          <!-- this fild fulled by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- newsletter section -->
+    <div class="newsletter">
+      <div class="container">
+        <h2 class="heading">Subscribe Now</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis
+          distinctio vel odio exercitationem obcaecati autem perferendis earum
+          provident labore eum.
+        </p>
+        <form action="#">
+          <input type="email" placeholder="enter your email" />
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- clients section -->
+    <div class="clients">
+      <div class="swiper client-slider">
+        <div class="clientsImge swiper-wrapper">
+          <div class="swiper-slide slide">
+            <img src="./photos/logos/1.png" alt="" />
+          </div>
+          <div class="swiper-slide slide">
+            <img src="./photos/logos/2.png" alt="" />
+          </div>
+          <div class="swiper-slide slide">
+            <img src="./photos/logos/3.png" alt="" />
+          </div>
+          <div class="swiper-slide slide">
+            <img src="./photos/logos/4.png" alt="" />
+          </div>
+          <div class="swiper-slide slide">
+            <img src="./photos/logos/5.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+      <div class="container">
+        <div>
+          <h4>Quick Links</h4>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#shop">Shop</a>
+          <a href="#packages">Packages</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#blogs">Blogs</a>
+        </div>
+        <div class="emailBug2">
+          <h4>Extra Links</h4>
+          <a href="#">My Account</a>
+          <a href="#">My Order</a>
+          <a href="#">My Wishlist</a>
+          <a href="#">Ask Questions</a>
+          <a href="#">Terms Of Use</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <a href="#"><i class="fa-brands icon fa-facebook-f"></i>Facebook</a>
+          <a href="#"><i class="fa-brands icon fa-twitter"></i>Twitter</a>
+          <a href="#"><i class="fa-brands icon fa-instagram"></i>Instagram</a>
+          <a href="#"><i class="fa-brands icon fa-linkedin"></i>Linkedin</a>
+          <a href="#"><i class="fa-brands icon fa-github"></i>Github</a>
+        </div>
+        <div class="emailBug">
+          <h4>Contact Info</h4>
+          <a href="#"><i class="fas icon fa-phone-flip"></i>+20-127-643-4424</a>
+          <a href="#"><i class="fas icon fa-phone-flip"></i>+20-155-252-8638</a>
+          <a href="#" class="email"
+            ><i class="fas icon fa-envelope"></i>Kareemnasrallah88@gmail.com</a
+          >
+          <a href="#"><i class="fas icon fa-map"></i>Alexandria, Egypt</a>
+        </div>
+      </div>
+      <h3>Created By <span>Kareem Nasrallah</span> | All Rights Reserved!</h3>
+    </footer>
+  </body>
+</html>
