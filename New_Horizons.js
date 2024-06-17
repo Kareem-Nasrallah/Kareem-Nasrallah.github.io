@@ -74,7 +74,7 @@ const shopContainer = document.getElementById("shopContainer");
 const shopImages = [
   "backpack",
   "camera",
-  "knife",
+  "Knife",
   "life jaket",
   "compass",
   "wristwatch",
@@ -196,12 +196,12 @@ const packagesImages = [
   "summer",
 ];
 const packagesdescribe = [
-  "lorem fdhgxf grbsdg htgtrhsrt strhbsrthb strhbstrh trhg trhgh thg reg",
-  "lorem fdhgxf grbsdg htgtrhsrt strhbsrthb strhbstrh trhg trhgh thg reg",
-  "lorem fdhgxf grbsdg htgtrhsrt strhbsrthb strhbstrh trhg trhgh thg reg",
-  "lorem fdhgxf grbsdg htgtrhsrt strhbsrthb strhbstrh trhg trhgh thg reg",
-  "lorem fdhgxf grbsdg htgtrhsrt strhbsrthb strhbstrh trhg trhgh thg reg",
-  "lorem fdhgxf grbsdg htgtrhsrt strhbsrthb strhbstrh trhg trhgh thg reg",
+  "Walking tour through a mountain orchard. Explore nature's beauty.",
+  "Cable car adventure amidst stunning icebergs. Experience the chill.",
+  "Hit the slopes and enjoy thrilling winter skiing adventures.",
+  "Romantic getaways with scenic views and intimate experiences",
+  "Feel the adrenaline rush with an exhilarating skydiving experience.",
+  "Enjoy swimming, canoeing, and kayaking in sunny summer locations.",
 ];
 const packagesPrice = [
   "$200 - $300",
@@ -320,7 +320,14 @@ var swiper = new Swiper(".review-slider", {
 // services
 const boxContainer = document.getElementById("servicesContainer");
 const servicesImages = ["1", "2", "3", "4", "5", "6"];
-const servicescomment = [];
+const servicesSummary = [
+  "Expert guides to ensure a seamless and enjoyable trip.",
+  "Tailor-made travel experiences to suit your preferences and needs.",
+  "Fun and memorable adventures designed for the whole family.",
+  "Exciting camping experiences in beautiful and serene locations.",
+  "Explore thrilling trails with guided adventure tours and activities.",
+  "Diverse activities to satisfy your adventurous spirit and curiosity.",
+];
 const servicesName = [
   "Complete Guide",
   "Custom Packages",
@@ -338,8 +345,7 @@ let fullService = (_) => {
           <img src="./photos/services/${servicesImages[i]}.png" alt="" />
           <h3><span>${servicesName[i]}</span></h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis,
-            accusamus.
+            ${servicesSummary[i]}
           </p>
           <a href="#" class="btn">Read More</a>
         </div>
@@ -360,12 +366,12 @@ const blogsImages = [
   "Sunset with your loved one",
 ];
 const blogsPosts = [
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint,incidunt!",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint,incidunt!",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint,incidunt!",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint,incidunt!",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint,incidunt!",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint,incidunt!",
+  "Unwind and rejuvenate with our peaceful and serene destinations.",
+  "Conquer peaks and enjoy breathtaking views with guided mountain hikes.",
+  "Experience the thrill of paragliding and feel the freedom.",
+  "Discover the joy of solo travel and personal reflection.",
+  "Enjoy exhilarating swings high above the ground with stunning views.",
+  "Cherish romantic sunsets with your special someone in beautiful settings.",
 ];
 const blogsDate = [
   "1st March, 2024",
