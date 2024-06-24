@@ -385,13 +385,13 @@ let fullShop = (_) => {
     productBigImages += `
       <div class="zoomImageBoxs">
         <div class="fas fa-xmark classZoom"></div>
-        <img src="./photos/shop/${products[i].title}.png" alt="" class="imageProducts">
+        <img src="./photos/shop/${products[i].title}.png" loading="lazy" alt="" class="imageProducts">
       </div>
       `;
     anyproductbox += `
         <div class="productbox slide swiper-slide">
           <div class="imagebox">
-            <img src="./photos/shop/${products[i].title}.png" alt="">
+            <img src="./photos/shop/${products[i].title}.png" loading="lazy" alt="">
             <div class="icons">
               <a class="fas fa-shopping-cart IconProductCart" onclick="addToCart(${i})"></a>
               <a class="fas fa-eye"></a>
@@ -500,7 +500,7 @@ let fullPackages = (_) => {
     anypackages += `
         <div class="box">
           <div class="imgBox">
-            <img src="./photos/packages/${packagesImages[i]}.jpg" alt="">
+            <img src="./photos/packages/${packagesImages[i]}.jpg" loading="lazy" alt="">
           </div>
           <h3>${packagesImages[i]} Packages</h3>
           <p>${packagesdescribe[i]}</p>
@@ -553,7 +553,7 @@ let fullComments = (_) => {
               </p>
             </div>
             <div class="pearson">
-              <img src="./photos/profile picture/${commentImage[i]}.jpg" alt="" />
+              <img src="./photos/profile picture/${commentImage[i]}.jpg" loading="lazy" alt="" />
               <div class="info">
                 <h4 class="name">${commentName[i]}</h4>
                 <span class="work">${job[i]}</span>
@@ -624,7 +624,7 @@ let fullService = (_) => {
   for (i = 0; i < servicesImages.length; i++) {
     allServices += `
         <div class="box service">
-          <img src="./photos/services/${servicesImages[i]}.png" alt="" />
+          <img src="./photos/services/${servicesImages[i]}.png" loading="lazy" alt="" />
           <h3><span>${servicesName[i]}</span></h3>
           <p>
             ${servicesSummary[i]}
@@ -670,7 +670,7 @@ let fullBlogs = (_) => {
           <div class="blogspost  slide swiper-slide">
             <div class="imageAndDate">
               <div class="imageBox">
-                <img src="./photos/blogs/${blogsImages[i]}.jpg" alt="" />
+                <img src="./photos/blogs/${blogsImages[i]}.jpg" loading="lazy" alt="" />
               </div>
               <div class="date">
                 <a href="#"><i class="fas fa-calendar-days"></i>${blogsDate[i]}</a>
