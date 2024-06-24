@@ -1,4 +1,10 @@
-// make the link of section active
+// prealod div
+const preload = document.querySelector(".preload");
+window.addEventListener("load", (_) => {
+  preload.classList.add("loading");
+});
+
+// make the links of the header section active
 const navList = document.querySelectorAll("header nav a");
 const sections = document.getElementsByTagName("section");
 let navActive = (_) => {
@@ -19,13 +25,13 @@ const searchBtn = document.getElementById("search-btn");
 const searchForm = document.querySelector(".search-form");
 const searchClose = document.querySelector(".search-close");
 searchBtn.onclick = (_) => {
-  searchForm.classList.toggle("active");
+  searchForm.classList.add("active");
 };
 searchClose.onclick = (_) => {
-  searchForm.classList.toggle("active");
+  searchForm.classList.remove("active");
 };
 
-// open & close the mnue
+// open & close the mnue , cart and photos
 const menu = document.getElementById("menu");
 const nav = document.querySelector("nav");
 const xmark = document.querySelector(".fa-xmark");
@@ -37,6 +43,14 @@ document.onclick = (event) => {
   if (!nav.contains(event.target)) {
     closeMenu();
   }
+  if (!cart.contains(event.target)) {
+    closeCart();
+  }
+  if (!zoomImageContainer.contains(event.target)) {
+    zoomImageBoxs.forEach((zoomImageBox) => {
+      zoomImageBox.classList.remove("active");
+    });
+  }
 };
 
 menu.onclick = (event) => {
@@ -47,11 +61,303 @@ menu.onclick = (event) => {
 xmark.onclick = (_) => closeMenu();
 window.onscroll = (_) => {
   closeMenu();
+  closeCart();
   searchForm.classList.remove("active");
   navActive();
+  zoomImageBoxs.forEach((zoomImageBox) => {
+    zoomImageBox.classList.remove("active");
+  });
 };
 
-// made the swiper rum
+// Open and Close the cart
+const cartBtn = document.getElementById("cartBtn");
+const cart = document.getElementById("cart");
+const CloseCartBtn = document.querySelector(".cart-close");
+cartBtn.onclick = (event) => {
+  event.stopPropagation();
+  closeMenu();
+  cart.style.translate = "0";
+  cart.style.boxShadow = "0 0 0 105vw rgba(0,0,0,.8)";
+};
+let closeCart = (_) => {
+  cart.style.translate = "110%";
+  cart.style.boxShadow = "none";
+};
+CloseCartBtn.onclick = (_) => {
+  closeCart();
+};
+
+// select all the products we have in "products" array
+const products = [
+  {
+    id: "1",
+    title: "backpack",
+    price: 35,
+    stars: "fas fa-star-half-alt",
+  },
+  {
+    id: "2",
+    title: "camera",
+    price: 50,
+    stars: "fas fa-star",
+  },
+  {
+    id: "3",
+    title: "Knife",
+    price: 20,
+    stars: "fas fa-star-half-alt",
+  },
+  {
+    id: "4",
+    title: "life jaket",
+    price: 15,
+    stars: "fa-regular fa-star",
+  },
+  {
+    id: "5",
+    title: "compass",
+    price: 10,
+    stars: "fas fa-star",
+  },
+  {
+    id: "6",
+    title: "wristwatch",
+    price: 20,
+    stars: "fas fa-star-half-alt",
+  },
+  {
+    id: "7",
+    title: "Thin knife",
+    price: 10,
+    stars: "fas fa-star-half-alt",
+  },
+  {
+    id: "8",
+    title: "boot",
+    price: 30,
+    stars: "fas fa-star-half-alt",
+  },
+  {
+    id: "9",
+    title: "S Hook",
+    price: 10,
+    stars: "fa-regular fa-star",
+  },
+  {
+    id: "10",
+    title: "Binocular",
+    price: 35,
+    stars: "fas fa-star-half-alt",
+  },
+  {
+    id: "11",
+    title: "Flashlight",
+    price: 10,
+    stars: "fas fa-star-half-alt",
+  },
+  {
+    id: "12",
+    title: "magnifying glass",
+    price: 10,
+    stars: "fa-regular fa-star",
+  },
+];
+products.forEach((el) => {
+  el.count = 1;
+});
+
+// show the quantity of products in the cart
+let quantity = document.getElementById("quantity");
+let quantityAppear = (_) => {
+  if (
+    quantity.innerText == "0" ||
+    localStorage.quantityCount == 0 ||
+    localStorage.quantityCount == null
+  ) {
+    quantity.style.visibility = "hidden";
+  } else {
+    quantity.style.visibility = "visible";
+  }
+};
+
+// localStorage.clear();
+
+// set the total price and the quantity of products
+let total = document.querySelector(".total");
+let totalPrice;
+let quantityCount;
+let cartListProducts;
+let countAndPriceNumber = (_) => {
+  localStorage.totalPrice = totalPrice;
+  quantityCount = quantityCount + 1;
+  localStorage.quantityCount = quantityCount;
+  if (localStorage.totalPrice < 0 || localStorage.quantityCount < 0) {
+    totalPrice = 0;
+    quantityCount = 0;
+  }
+  total.innerText = `Total : $${localStorage.totalPrice}.00`;
+  quantity.innerText = localStorage.quantityCount;
+  quantityAppear();
+};
+if (
+  localStorage.quantityCount == null ||
+  localStorage.totalPrice == null ||
+  localStorage.cartListProducts == null
+) {
+  quantityCount = 0;
+  totalPrice = 0;
+  cartListProducts = [];
+} else {
+  cartListProducts = JSON.parse(localStorage.cartListProducts);
+  totalPrice = Number(localStorage.totalPrice);
+  quantityCount = Number(localStorage.quantityCount);
+  quantityCount = quantityCount - 1;
+  countAndPriceNumber();
+}
+
+// add a product to the cart
+let addToCart = (index) => {
+  // check if this product is a new in the cart of not
+  for (i = 0; i < cartListProducts.length; i++) {
+    // if it is new add it
+    if (cartListProducts[i].id == products[index].id) {
+      cartListProducts[i].count++;
+      localStorage.cartListProducts = JSON.stringify(cartListProducts);
+      totalPrice = totalPrice + products[index].price;
+      countAndPriceNumber();
+      // the main adding function
+      fullCartList();
+      minusAndPlus();
+      // delete the product function
+      trashProduct();
+
+      return;
+    }
+  }
+  // if it is old just increase the count product
+  cartListProducts.splice(0, 0, products[index]);
+  localStorage.cartListProducts = JSON.stringify(cartListProducts);
+  totalPrice = totalPrice + products[index].price;
+  countAndPriceNumber();
+  fullCartList();
+  minusAndPlus();
+  trashProduct();
+};
+
+// control in the DOM to adding the products to the cart
+let cartList = document.querySelector(".cartList");
+let fullCartList = (_) => {
+  let allProducts = [];
+  for (i = 0; i < cartListProducts.length; i++) {
+    allProducts += `
+    <div class="product">
+      <div class="imagebox">
+        <img src="./photos/shop/${cartListProducts[i].title}.png" alt="">
+      </div>
+      <div class="titleAndPrice">
+        <h4>${cartListProducts[i].title}</h4>
+        <span>$${
+          cartListProducts[i].price * cartListProducts[i].count
+        }.00</span>
+      </div>
+      <div class="dec-increase">
+        <div class="fas fa-square-minus minusBtn"></div>
+        <span>${cartListProducts[i].count}</span>
+        <div class="fas fa-square-plus plusBtn"></div>
+        <div class="fas fa-trash trashs"></div>
+      </div>
+    </div>
+    `;
+  }
+
+  cartList.innerHTML = allProducts;
+};
+fullCartList();
+
+// decrease or increase the products count and total price function
+let minusBtns = [];
+let plusBtns = [];
+let minusAndPlus = (_) => {
+  minusBtns = document.querySelectorAll(".minusBtn");
+  plusBtns = document.querySelectorAll(".plusBtn");
+  // decrease the count of the product or delet the product
+  minusBtns.forEach((minusBtn, ind) => {
+    minusBtn.onclick = (event) => {
+      totalPrice = totalPrice - cartListProducts[ind].price;
+      quantityCount = quantityCount - 2;
+      countAndPriceNumber();
+      // delete the product if his count == 0
+      if (cartListProducts[ind].count == 1) {
+        cartListProducts.splice([ind], 1);
+      } else {
+        cartListProducts[ind].count--;
+      }
+      localStorage.cartListProducts = JSON.stringify(cartListProducts);
+      event.stopPropagation();
+      fullCartList();
+      // call the function again to keep it in link with the DOM
+      trashProduct();
+      minusAndPlus();
+    };
+  });
+
+  // increase the count of the product and the total price
+  plusBtns.forEach((plusBtn, ind) => {
+    plusBtn.onclick = (event) => {
+      cartListProducts[ind].count++;
+      localStorage.cartListProducts = JSON.stringify(cartListProducts);
+      totalPrice = totalPrice + cartListProducts[ind].price;
+      countAndPriceNumber();
+      event.stopPropagation();
+      fullCartList();
+      // call the function again to keep it in link with the DOM
+      trashProduct();
+      minusAndPlus();
+    };
+  });
+};
+
+// delete a product from the cart and chang the total price and the quantity
+let trashs = [];
+let trashProduct = (_) => {
+  trashs = document.querySelectorAll(".trashs");
+  trashs.forEach((trash, index) => {
+    trash.onclick = (event) => {
+      totalPrice =
+        totalPrice -
+        cartListProducts[index].price * cartListProducts[index].count;
+      quantityCount = quantityCount - cartListProducts[index].count - 1;
+      countAndPriceNumber();
+      event.stopPropagation();
+      cartListProducts.splice(index, 1);
+      localStorage.cartListProducts = JSON.stringify(cartListProducts);
+      fullCartList();
+      minusAndPlus();
+      trashProduct();
+    };
+  });
+};
+// call the 2 functions to be ready when the page relod
+minusAndPlus();
+trashProduct();
+
+// delete all product carts
+let dumpster = document.querySelector(".fa-dumpster");
+dumpster.onclick = (_) => {
+  cartListProducts = [];
+  localStorage.cartListProducts = JSON.stringify(cartListProducts);
+  quantityCount = -1;
+  totalPrice = 0;
+  countAndPriceNumber();
+  products.forEach((el) => {
+    el.count = 1;
+  });
+  fullCartList();
+  minusAndPlus();
+  trashProduct();
+};
+
+// made the Home swiper rum
 var swiper = new Swiper(".home_swiper", {
   effect: "fade",
   loop: true,
@@ -69,83 +375,60 @@ var swiper = new Swiper(".home_swiper", {
   },
 });
 
-// full the product div
+// full the Shopping section
+const zoomImageContainer = document.getElementById("zoomImageContainer");
 const shopContainer = document.getElementById("shopContainer");
-const shopImages = [
-  "backpack",
-  "camera",
-  "Knife",
-  "life jaket",
-  "compass",
-  "wristwatch",
-  "Thin knife",
-  "boot",
-  "S Hook",
-  "Binocular",
-  "Flashlight",
-  "magnifying glass",
-];
-const shopPrice = [
-  "$35.00",
-  "$50.00",
-  "$20.00",
-  "$15.00",
-  "$10.00",
-  "$20.00",
-  "$10.00",
-  "$30.00",
-  "$10.00",
-  "$35.00",
-  "$10.00",
-  "$10.00",
-];
-const stars = [
-  "fas fa-star-half-alt",
-  "fas fa-star",
-  "fas fa-star-half-alt",
-  "fa-regular fa-star",
-  "fas fa-star",
-  "fas fa-star-half-alt",
-  "fas fa-star-half-alt",
-  "fas fa-star-half-alt",
-  "fa-regular fa-star",
-  "fas fa-star-half-alt",
-  "fas fa-star-half-alt",
-  "fa-regular fa-star",
-];
-
 let fullShop = (_) => {
+  let productBigImages = [];
   let anyproductbox = "";
-  for (i = 0; i < shopImages.length; i++) {
+  for (i = 0; i < products.length; i++) {
+    productBigImages += `
+      <div class="zoomImageBoxs">
+        <div class="fas fa-xmark classZoom"></div>
+        <img src="./photos/shop/${products[i].title}.png" alt="" class="imageProducts">
+      </div>
+      `;
     anyproductbox += `
         <div class="productbox slide swiper-slide">
           <div class="imagebox">
-            <img src="./photos/shop/${shopImages[i]}.png" alt="">
+            <img src="./photos/shop/${products[i].title}.png" alt="">
             <div class="icons">
-              <a href="#" class="fas fa-shopping-cart IconProductCart"></a>
-              <a href="#" class="fas fa-eye"></a>
+              <a class="fas fa-shopping-cart IconProductCart" onclick="addToCart(${i})"></a>
+              <a class="fas fa-eye"></a>
               <a href="#" class="fas fa-share"></a>
             </div>
           </div>
-          <h4>${shopImages[i]}</h4>
-          <span>${shopPrice[i]}</span>
+          <h4>${products[i].title}</h4>
+          <span>$${products[i].price}.00</span>
           <div class="stars">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
-            <i class="${stars[i]}"></i>
+            <i class="${products[i].stars}"></i>
           </div>
         </div>`;
   }
   shopContainer.innerHTML = anyproductbox;
+  zoomImageContainer.innerHTML += productBigImages;
 };
 fullShop();
 
-const editCountPlus = document.querySelector(".editCountPlus");
-const editCountMinus = document.querySelector(".editCountMinus");
+// zoom in a photo product
+let eyes = document.querySelectorAll(".fa-eye");
+let zoomImageBoxs = document.querySelectorAll(".zoomImageBoxs");
+let classZoom = document.querySelectorAll(".classZoom");
+eyes.forEach((eye, index) => {
+  eye.onclick = (event) => {
+    event.stopPropagation();
+    zoomImageBoxs[index].classList.add("active");
+  };
+});
+classZoom.forEach((classZoomOne, index) => {
+  classZoomOne.onclick = (_) => zoomImageBoxs[index].classList.remove("active");
+});
 
-// made the swiper rum
+// made the Shopping swiper rum
 var swiper = new Swiper(".product-slider", {
   spaceBetween: 40,
   loop: true,
@@ -185,7 +468,7 @@ var swiper = new Swiper(".product-slider", {
   },
 });
 
-// packages
+// full the packages section
 const packagesContainer = document.getElementById("packagesContainer");
 const packagesImages = [
   "Hiking",
@@ -229,7 +512,7 @@ let fullPackages = (_) => {
 };
 fullPackages();
 
-// coments
+// full the Reviews section
 const containerBox = document.querySelector(".containerBox");
 const coment = [
   "Absolutely thrilled with the impeccable service and breathtaking destinations! New Horizons turns travel dreams into reality, one trip at a time. Highly recommended for anyone seeking an unforgettable journey! 🏞️✈️ #Wanderlust",
@@ -282,7 +565,7 @@ let fullComments = (_) => {
 };
 fullComments();
 
-// made the swiper rum
+// made the Reviews swiper rum
 var swiper = new Swiper(".review-slider", {
   loop: true,
   grabCursor: true,
@@ -317,7 +600,7 @@ var swiper = new Swiper(".review-slider", {
   },
 });
 
-// services
+// full the services section
 const boxContainer = document.getElementById("servicesContainer");
 const servicesImages = ["1", "2", "3", "4", "5", "6"];
 const servicesSummary = [
@@ -336,7 +619,6 @@ const servicesName = [
   "Adventure Trail",
   "Various Adventures",
 ];
-
 let fullService = (_) => {
   let allServices = "";
   for (i = 0; i < servicesImages.length; i++) {
@@ -355,7 +637,7 @@ let fullService = (_) => {
 };
 fullService();
 
-// blogs
+// full the blogs section
 const blogsContainer = document.getElementById("blogsContainer");
 const blogsImages = [
   "Relaxation is all you need",
@@ -381,7 +663,6 @@ const blogsDate = [
   "19th May, 2024",
   "5th July, 2024",
 ];
-
 let fullBlogs = (_) => {
   let allBlogs = "";
   for (i = 0; i < blogsImages.length; i++) {
@@ -405,7 +686,7 @@ let fullBlogs = (_) => {
 };
 fullBlogs();
 
-// made the swiper rum
+// made the blogs swiper rum
 var swiper = new Swiper(".blog-slider", {
   spaceBetween: 30,
   loop: true,
@@ -441,7 +722,7 @@ var swiper = new Swiper(".blog-slider", {
   },
 });
 
-// made the swiper rum
+// made the clients swiper rum
 var swiper = new Swiper(".client-slider", {
   spaceBetween: 20,
   loop: true,

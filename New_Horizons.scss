@@ -1,9 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;1,100;1,300&display=swap");
-$green: #219150;
+$green: hwb(145 13% 43%);
 $darkGreen: #10221b;
 $light-bg: #eee;
 $border: 2px solid $darkGreen;
 $box-shado: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+$gradiantBg: linear-gradient(
+  to right,
+  rgb(35, 112, 35) 35%,
+  rgb(50, 204, 114),
+  rgb(35, 112, 35) 65%
+);
 
 // to make any grid take this orders
 @mixin grid($val) {
@@ -12,14 +18,14 @@ $box-shado: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   gap: 3.5rem;
 }
 
-%flex {
+@mixin flex {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-%flexColumn {
-  @extend %flex;
+@mixin flexColumn {
+  @include flex;
   flex-direction: column;
 }
 
@@ -42,14 +48,7 @@ $box-shado: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: 0.2s linear;
-}
-
-body {
-  overflow-x: hidden;
-  > div {
-    @extend section;
-  }
+  transition: 0.3s linear;
 }
 
 html {
@@ -69,6 +68,13 @@ html {
   }
 }
 
+body {
+  overflow-x: hidden;
+  > div {
+    @extend section;
+  }
+}
+
 section {
   padding: 4rem 9%;
 }
@@ -83,6 +89,100 @@ h3 {
 .fas,
 .fa-regular {
   font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.logo {
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 1.6rem;
+  i {
+    font-size: 1.6rem;
+    color: $green;
+  }
+}
+
+.preload {
+  opacity: 1;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: 120;
+
+  .text {
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    translate: -50% 20%;
+    width: 100%;
+    text-align: center;
+    @extend .logo;
+    letter-spacing: 5px;
+    word-spacing: 5px;
+    span {
+      font-size: 2.6rem;
+      display: inline;
+      -webkit-text-stroke: 1.5px $darkGreen;
+      background: $gradiantBg;
+      background-clip: text;
+      color: transparent;
+      animation: colorPlay 1s linear 0.5s infinite alternate;
+    }
+    i {
+      -webkit-text-stroke: 1.5px $darkGreen;
+      font-size: 2.6rem;
+    }
+  }
+  .circle {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    translate: -50% 20%;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: #00000055 solid 5px;
+    border-bottom-color: rgb(31, 78, 31);
+    animation: rotatCircle 1.5s linear infinite;
+  }
+  .imageBox {
+    position: absolute;
+    bottom: 0;
+    height: 50vh;
+    width: 100%;
+    background: {
+      image: url(/photos/preload.svg);
+      position: top center;
+      repeat: no-repeat;
+      size: 80%;
+    }
+  }
+}
+.preload.loading {
+  opacity: 0;
+  z-index: -1;
+}
+
+@keyframes colorPlay {
+  from {
+    background-position: 10rem 0rem;
+  }
+  to {
+    background-position: -10rem 0rem;
+  }
+}
+
+@keyframes rotatCircle {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
 }
 
 header {
@@ -93,16 +193,24 @@ header {
   z-index: 110;
   padding: 8px 7% 8px 8%;
   padding-bottom: 0.5rem;
-  @extend %flex;
+  @include flex;
   background: #ffffffa0;
+
   .logo {
     margin-right: auto;
-    font-weight: 700;
-    letter-spacing: 1px;
-    font-size: 1.6rem;
-    i {
-      font-size: 1.6rem;
-      color: $green;
+  }
+  #cartBtn {
+    position: relative;
+    #quantity {
+      visibility: hidden;
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #0f0;
+      padding: 3px 6px 2.5px;
+      border-radius: 50%;
+      font-size: 1rem;
+      color: #000;
     }
   }
   nav {
@@ -139,11 +247,11 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  @extend %flex;
+  @include flex;
   width: 100%;
   height: 100%;
   background: rgb(0, 0, 0, 0.8);
-  z-index: 111;
+  z-index: 113;
   visibility: hidden;
   opacity: 0;
   &.active {
@@ -153,7 +261,7 @@ header {
 
   form {
     border-bottom: #bbb 2px solid;
-    @extend %flex;
+    @include flex;
     input {
       color: #fff;
       background: transparent;
@@ -170,6 +278,132 @@ header {
       @extend %btn;
       color: #fff;
       font-size: 1.8rem;
+    }
+  }
+}
+
+#cart {
+  width: 60%;
+  max-width: 500px;
+  background: #fff;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 0;
+  z-index: 112;
+  display: grid;
+  grid-template-rows: 55px 1fr 55px;
+  transition: 0.5s;
+  translate: 110%;
+
+  .cartTitle {
+    width: 100%;
+
+    .fa-dumpster {
+      position: absolute;
+      top: 1.3rem;
+      left: 1.5rem;
+      font-size: 1.5rem;
+      &:hover {
+        color: #a00;
+      }
+    }
+    .cart-close {
+      color: #000;
+      font-size: 2rem;
+      font-weight: 700;
+      &:hover {
+        color: #a00;
+      }
+    }
+    h3 {
+      text-align: center;
+      color: $green;
+      margin-top: 0.9rem;
+    }
+  }
+  .cartList {
+    width: 100%;
+    @extend html;
+    &::-webkit-scrollbar-thumb {
+      border-radius: 2rem;
+      background: $green;
+    }
+
+    .product {
+      @include flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1rem;
+      margin: 1.5rem;
+      background: #99999955;
+      border-radius: 10px;
+      box-shadow: 0.5rem 0.5rem 1rem #00000055;
+      &:hover {
+        background: #00440044;
+      }
+
+      .titleAndPrice {
+        text-align: center;
+        h4 {
+          font-size: 1rem;
+        }
+        span {
+          padding: 0.3rem 0;
+          font-size: 1.2rem;
+        }
+      }
+      .imagebox {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: $light-bg;
+        border: $border;
+        flex-shrink: 0;
+        @include flex;
+        overflow: hidden;
+
+        img {
+          max-width: 90%;
+          max-height: 90%;
+        }
+      }
+
+      .dec-increase {
+        @include flex();
+        gap: 0.5rem;
+
+        .fa-trash {
+          margin-left: 2rem;
+          &:hover {
+            color: #a00;
+          }
+        }
+      }
+    }
+  }
+  .cartBottom {
+    display: grid;
+    width: 100%;
+    padding: 10px;
+    grid-template-columns: 130px 1fr;
+    gap: 10px;
+
+    > * {
+      border-radius: 10px;
+      @include flex;
+    }
+    .total {
+      color: #fff;
+      background: $darkGreen;
+    }
+    .checkOut {
+      background: #0a0;
+      cursor: pointer;
+      &:hover {
+        background: #2c2;
+      }
     }
   }
 }
@@ -216,7 +450,7 @@ header {
     background-size: cover;
     background-position: center 50%;
     background-repeat: no-repeat;
-    @extend %flex;
+    @include flex;
     &.secondBg {
       background-position: center 70%;
     }
@@ -265,13 +499,13 @@ header {
 
 .category {
   .boxes-container {
-    @extend %flex;
+    @include flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 3rem;
     .box {
       width: 15rem;
-      @extend %flexColumn;
+      @include flexColumn;
       gap: 1rem;
       margin: 20px 0;
       img {
@@ -290,7 +524,7 @@ header {
 }
 
 #about {
-  @extend %flex;
+  @include flex;
   flex-wrap: wrap;
   gap: 2rem;
   background: $light-bg;
@@ -322,48 +556,80 @@ span {
 }
 
 #shop {
-  .slide {
-    width: 200px;
-    height: 360px;
-    @extend %flexColumn;
-    justify-content: flex-start;
-    gap: 0.5rem;
-    border: $border;
-    &:hover .imagebox .icons {
-      transform: translateY(0px);
+  .zoomImageBoxs {
+    width: 80vw;
+    height: 80vh;
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    translate: 50% -50%;
+    box-shadow: 0 0 0 105vw rgba(0, 0, 0, 0.5);
+    display: none;
+    &.active {
+      @include flex;
+      // grid-template-rows: 50px 1fr ;
+      z-index: 116;
     }
-    .imagebox {
-      background: $light-bg;
-      width: 100%;
-      height: 230px;
-      overflow: hidden;
-      @extend %flexColumn;
-      position: relative;
-
-      img {
-        max-width: 180px;
-        max-height: 230px;
+    .classZoom {
+      z-index: 116;
+    }
+    img {
+      z-index: 115;
+      max-width: 90%;
+      // min-width: 50%;
+      max-height: 90%;
+      // min-height: 50%;
+      box-shadow: 0 0 0 105vw rgba(0, 0, 0, 0.8);
+      background: rgba(200, 200, 200, 0.8);
+    }
+  }
+  #shopContainer {
+    height: 390px;
+    .slide {
+      width: 200px;
+      height: 360px;
+      @include flexColumn;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      border: $border;
+      box-shadow: 0px 5px 15px #000;
+      &:hover .imagebox .icons {
+        transform: translateY(0px);
       }
-      .icons {
-        position: absolute;
-        bottom: 20px;
-        z-index: 100;
-        transform: translateY(80px);
-        a {
-          padding: 10px;
-          background: $darkGreen;
-          margin-right: 2px;
-          color: #fff;
-          font-size: 0.9rem;
-          &:hover {
-            background: $green;
+      .imagebox {
+        background: $light-bg;
+        width: 100%;
+        height: 230px;
+        overflow: hidden;
+        @include flexColumn;
+        position: relative;
+
+        img {
+          max-width: 180px;
+          max-height: 230px;
+        }
+        .icons {
+          position: absolute;
+          bottom: 20px;
+          z-index: 100;
+          transform: translateY(80px);
+          a {
+            padding: 10px;
+            background: $darkGreen;
+            margin-right: 2px;
+            color: #fff;
+            font-size: 0.9rem;
+            &:hover {
+              background: $green;
+            }
           }
         }
       }
-    }
-    h4 {
-      font-size: 1.2rem;
-      text-transform: capitalize;
+      h4 {
+        font-size: 1.2rem;
+        text-transform: capitalize;
+      }
     }
   }
 }
@@ -378,7 +644,7 @@ span {
       background: #fff;
       height: 490px;
       padding-bottom: 30px;
-      @extend %flexColumn;
+      @include flexColumn;
       justify-content: flex-start;
       gap: 10px;
       border: $border;
@@ -418,7 +684,7 @@ span {
         margin: 20px;
         height: 200px;
         text-align: center;
-        @extend %flex;
+        @include flex;
         overflow: hidden;
         img {
           width: 100%;
@@ -463,7 +729,7 @@ span {
       }
       .pearson {
         padding-top: 30px;
-        @extend %flex;
+        @include flex;
         justify-content: flex-start;
         gap: 10px;
         img {
@@ -489,7 +755,7 @@ span {
     .blogspost {
       text-align: center;
       min-height: 430px;
-      @extend %flexColumn;
+      @include flexColumn;
       gap: 8px;
 
       .imageAndDate {
@@ -499,7 +765,7 @@ span {
         .imageBox {
           width: 100%;
           height: 220px;
-          @extend %flex;
+          @include flex;
           overflow: hidden;
           img {
             width: 100%;
@@ -513,7 +779,7 @@ span {
           position: absolute;
           bottom: -5px;
           left: 12.5%;
-          @extend %flex;
+          @include flex;
           justify-content: space-evenly;
           gap: 5px;
           padding: 5px;
@@ -590,7 +856,7 @@ span {
   .clientsImge {
     .slide {
       width: 200px;
-      @extend %flex;
+      @include flex;
       height: 150px;
       img {
         max-width: 150px;
@@ -690,6 +956,10 @@ footer {
     margin: 0 0.25rem;
     padding: 8px 0.3rem;
   }
+  // .preload .imageBox{
+  //   width: 90%;
+  //   margin: 0;
+  // }
   header {
     padding: 8px 4%;
   }
@@ -708,6 +978,9 @@ footer {
 @media (width <= 1024px) {
   html {
     font-size: 95%;
+  }
+  .preload .imageBox {
+    background-size: cover;
   }
   .category {
     .boxes-container {
@@ -732,15 +1005,12 @@ footer {
   header {
     padding: 8px 20px;
   }
-  footer {
-    .container {
-      div {
-        width: 220px;
-        &.emailBug {
-          margin-top: 40px;
-        }
-      }
-    }
+  .preload .imageBox {
+    width: 100%;
+    margin: 0;
+  }
+  #cart .cartList .product .dec-increase .fa-trash {
+    margin-left: 1.5rem;
   }
   #about {
     .imageBox {
@@ -751,6 +1021,16 @@ footer {
       }
     }
   }
+  footer {
+    .container {
+      div {
+        width: 220px;
+        &.emailBug {
+          margin-top: 40px;
+        }
+      }
+    }
+  }
 }
 
 @media (width <= 840px) {
@@ -758,24 +1038,36 @@ footer {
     align-items: flex-start;
     padding: 8px 4%;
     nav {
+      transition: 0.5s;
       height: 100vh;
-      width: 70vw;
-      @extend %flexColumn;
+      width: 50vw;
+      @include flexColumn;
       position: absolute;
       top: 0;
       left: -110vw;
       background: #fff;
       z-index: 111;
       .fa-xmark {
+        font-size: 2.2rem;
         display: block;
       }
       a {
         margin: 10px;
-        font-size: 2rem;
+        font-size: 1.5rem;
       }
     }
     .icons #menu {
       display: inline-block;
+    }
+  }
+  #cart {
+    .cartList {
+      .product {
+        .imagebox {
+          width: 90px;
+          height: 90px;
+        }
+      }
     }
   }
   .category {
@@ -811,6 +1103,19 @@ footer {
   html {
     font-size: 90%;
   }
+  #cart {
+    .cartList {
+      .product {
+        .imagebox {
+          width: 80px;
+          height: 80px;
+        }
+        .dec-increase .fa-trash {
+          margin-left: 0.7rem;
+        }
+      }
+    }
+  }
   #home {
     .slide {
       .content {
@@ -825,7 +1130,52 @@ footer {
   }
 }
 
+@media (width <= 650px) {
+  #cart {
+    .cartList {
+      .product {
+        display: grid;
+        gap: 0;
+        grid-template-columns: auto 120px;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+          "imagebox titleAndPrice"
+          "imagebox dec-increase";
+        padding: 1rem 1.5rem;
+        .titleAndPrice {
+          grid-area: titleAndPrice;
+          h4 {
+            max-width: 120px;
+            margin: auto;
+          }
+        }
+        .dec-increase {
+          grid-area: dec-increase;
+        }
+        .imagebox {
+          grid-area: imagebox;
+        }
+      }
+    }
+  }
+}
 @media (width <= 550px) {
+  #cart {
+    .cartList {
+      .product {
+        grid-template-columns: auto 90px;
+        margin: 1.5rem 1rem;
+        .imagebox {
+          width: 75px;
+          height: 75px;
+          img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+        }
+      }
+    }
+  }
   #home {
     .slide {
       background-position: 40% 40%;
@@ -835,13 +1185,62 @@ footer {
 
 @media (width <= 450px) {
   html {
-    font-size: 85%;
+    font-size: 80%;
+  }
+  #cart {
+    .cartList {
+      .product {
+        grid-template-columns: auto 90px;
+        padding: 0.8rem 0.5rem;
+        margin: 1.5rem 1rem;
+        .imagebox {
+          width: 70px;
+          height: 70px;
+        }
+      }
+    }
+    .cartBottom {
+      grid-template-columns: 110px 1fr;
+    }
   }
   #about {
     .imageBox {
       img {
         width: 90%;
       }
+    }
+  }
+}
+@media (width <= 360px) {
+  #cart {
+    .fas,
+    .fa-regular {
+      font-size: 1.1rem;
+    }
+    .cartList .product {
+      .imagebox {
+        width: 70px;
+        height: 70px;
+      }
+      .titleAndPrice {
+        h4,
+        .cartBottom {
+          font-size: 0.9rem;
+        }
+        span {
+          font-size: 1.1rem;
+        }
+      }
+      .dec-increase {
+        gap: 0.4rem;
+        .fa-trash {
+          margin-left: 0.4rem;
+        }
+      }
+    }
+    .cartBottom {
+      grid-template-columns: 105px 1fr;
+      gap: 5px;
     }
   }
 }

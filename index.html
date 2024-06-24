@@ -6,6 +6,12 @@
     <!-- <meta name="description" content=""> -->
     <!-- <meta name="keywords" content=""> -->
     <title>New Horizons</title>
+    <link rel="shortcut icon" href="photos/favicon.svg" type="image/svg+xml" />
+
+    <!-- important photos to downlaod quicly -->
+    <link rel="preload" as="image" href="./photos/bg_home_1.jpg" />
+    <link rel="preload" as="image" href="./photos/bg_home_2.jpg" />
+    <link rel="preload" as="image" href="./photos/bg_home_3.jpg" />
 
     <!-- font Swiper cdn link (which made the slides motion) -->
     <link
@@ -32,6 +38,15 @@
     <script src="New_Horizons.js" defer></script>
   </head>
   <body>
+    <!-- preload div -->
+    <div class="preload">
+      <div class="text">
+        <i class="fas fa-person-hiking"></i><span> New Horizons</span>
+      </div>
+      <div class="circle"></div>
+      <div class="imageBox"></div>
+    </div>
+
     <!-- header section  -->
     <header>
       <a href="#" class="logo"
@@ -48,8 +63,10 @@
       </nav>
       <div class="icons">
         <div id="menu" class="fas fa-bars"></div>
-        <a href="#" id="cart" class="fas fa-cart-shopping"></a>
-        <div href="#" id="search-btn" class="fas fa-magnifying-glass"></div>
+        <div id="cartBtn" class="fas fa-cart-shopping">
+          <span id="quantity">0</span>
+        </div>
+        <div id="search-btn" class="fas fa-magnifying-glass"></div>
       </div>
     </header>
 
@@ -65,6 +82,20 @@
         />
         <label for="search-box" class="fas fa-magnifying-glass"></label>
       </form>
+    </div>
+
+    <!-- cart div -->
+    <div id="cart">
+      <div class="cartTitle">
+        <div class="fas fa-dumpster" title="Delete All"></div>
+        <div class="cart-close fas fa-xmark"></div>
+        <h3>cart</h3>
+      </div>
+      <div class="cartList"></div>
+      <div class="cartBottom">
+        <div class="total">Total : 0</div>
+        <div class="checkOut">CheckOut</div>
+      </div>
     </div>
 
     <!-- home section -->
@@ -105,7 +136,7 @@
         >
           <div class="content second">
             <h3>Discover The</h3>
-            <h2>NEW WORLD</h2>
+            <h2>NEW Horizons</h2>
             <p>
               Stand tall on snowy peaks, surrounded by winter's beauty. Feel the
               crisp air as you gaze at nature's splendor. A new world awaits
@@ -200,6 +231,9 @@
 
     <!-- shop section -->
     <section id="shop">
+      <div id="zoomImageContainer">
+        <!-- this fild fulled by JS -->
+      </div>
       <h2 class="heading">Featured Products</h2>
       <div class="swiper product-slider">
         <div class="swiper-wrapper" id="shopContainer">
@@ -325,7 +359,15 @@
           <a href="#"><i class="fas icon fa-map"></i>Alexandria, Egypt</a>
         </div>
       </div>
-      <h3>Created By <span>Kareem Nasrallah</span> | All Rights Reserved!</h3>
+      <h3>
+        Created &copy; By
+        <a
+          href="https://kareem-nasrallah.github.io/K_N-Portfolio"
+          title="His Portfolio"
+          ><span>Kareem Nasrallah</span></a
+        >
+        | All Rights Reserved!
+      </h3>
     </footer>
   </body>
 </html>
