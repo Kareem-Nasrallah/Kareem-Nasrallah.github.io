@@ -1152,4 +1152,15 @@ footer h3 span {
     grid-template-columns: 105px 1fr;
     gap: 5px;
   }
+}
+.Disappeared {
+  opacity: 0;
+  scale: 0.9;
+  translate: 0rem 0.5rem;
+}
+
+.showItem {
+  opacity: 1;
+  scale: 1;
+  translate: 0rem 0rem;
 }/*# sourceMappingURL=New_Horizons.css.map */

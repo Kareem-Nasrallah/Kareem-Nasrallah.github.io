@@ -1245,3 +1245,15 @@ footer {
     }
   }
 }
+
+// parallax
+.Disappeared {
+  opacity: 0;
+  scale: 0.9;
+  translate: 0rem 0.5rem;
+}
+.showItem {
+  opacity: 1;
+  scale: 1;
+  translate: 0rem 0rem;
+}

@@ -753,3 +753,15 @@ var swiper = new Swiper(".client-slider", {
     disableOnInteraction: false,
   },
 });
+
+// parallax
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("showItem");
+    }
+  });
+});
+
+const Disappeareds = document.querySelectorAll(".Disappeared");
+Disappeareds.forEach((Disappeared) => observer.observe(Disappeared));
