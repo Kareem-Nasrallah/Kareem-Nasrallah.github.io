@@ -155,7 +155,7 @@ h3 {
     height: 50vh;
     width: 100%;
     background: {
-      image: url(/photos/preload.png);
+      image: url(./photos/preload.svg);
       // image: url(/photos/preload.svg);
       position: top center;
       repeat: no-repeat;
@@ -1160,6 +1160,7 @@ footer {
     }
   }
 }
+
 @media (width <= 550px) {
   #cart {
     .cartList {
@@ -1212,6 +1213,7 @@ footer {
     }
   }
 }
+
 @media (width <= 360px) {
   #cart {
     .fas,
